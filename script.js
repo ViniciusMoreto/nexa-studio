@@ -1,12 +1,10 @@
-// =========================
 // DETECÇÃO DE MOBILE
-// =========================
+
 const isMobile = window.innerWidth <= 768;
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-// =========================
 // LOADER
-// =========================
+
 const loader = document.getElementById("loader");
 const loaderNexa = document.querySelector(".loader-nexa");
 const loaderStudio = document.querySelector(".loader-studio");
@@ -78,9 +76,8 @@ loaderTl.to(loaderProgressFill, {
     }
 }, "-=1");
 
-// =========================
 // TECH CURSOR (APENAS DESKTOP)
-// =========================
+
 if (!isMobile && !isTouchDevice) {
     const techCursor = document.getElementById("techCursor");
     const cursorTrail = document.getElementById("cursorTrail");
@@ -147,28 +144,39 @@ if (!isMobile && !isTouchDevice) {
     document.addEventListener("mouseenter", () => techCursor.style.opacity = "1");
 }
 
-// =========================
 // NAVBAR
-// =========================
+
 const navbar = document.getElementById("navbar");
 window.addEventListener("scroll", () => {
     navbar.classList.toggle("scrolled", window.scrollY > 50);
 });
 
-// =========================
 // MENU MOBILE
-// =========================
+
 const menuToggle = document.getElementById("menuToggle");
 const navUl = document.getElementById("navUl");
 
 menuToggle.addEventListener("click", () => {
     menuToggle.classList.toggle("active");
     navUl.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
 });
 
-// =========================
+// Fecha o menu ao clicar fora dele (no overlay)
+document.addEventListener("click", (e) => {
+    if (
+        navUl.classList.contains("active") &&
+        !navUl.contains(e.target) &&
+        !menuToggle.contains(e.target)
+    ) {
+        menuToggle.classList.remove("active");
+        navUl.classList.remove("active");
+        document.body.classList.remove("menu-open");
+    }
+});
+
 // SCROLL SUAVE
-// =========================
+
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", function (e) {
         const href = this.getAttribute("href");
@@ -177,16 +185,17 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
             const destino = document.querySelector(href);
             if (destino) {
                 destino.scrollIntoView({ behavior: "smooth" });
+                // Fecha o menu mobile se estiver aberto
                 menuToggle.classList.remove("active");
                 navUl.classList.remove("active");
+                document.body.classList.remove("menu-open");
             }
         }
     });
 });
 
-// =========================
 // PARTÍCULAS (APENAS DESKTOP)
-// =========================
+
 if (!isMobile) {
     const particles = document.getElementById("particles");
     for (let i = 0; i < 35; i++) {
@@ -202,9 +211,8 @@ if (!isMobile) {
     }
 }
 
-// =========================
 // GSAP + SCROLLTRIGGER
-// =========================
+
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.set(
@@ -355,9 +363,8 @@ function startAnimations() {
     });
 }
 
-// =========================
 // SPLIT TEXT ANIMATION
-// =========================
+
 const span = (text, index) => {
     const node = document.createElement("span");
     node.textContent = text;
@@ -389,9 +396,8 @@ if (motionOK) {
     });
 }
 
-// =========================
 // WHATSAPP - ESCOLHER PLANO
-// =========================
+
 const PLANOS = {
     Start: {
         nome: "Start (R$ 390)",

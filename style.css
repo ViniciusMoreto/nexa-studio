@@ -2504,3 +2504,152 @@ nav .nav-cta,
     display: none !important;
   }
 }
+
+/* ==========================
+   NAVBAR RESPONSIVA (MOBILE)
+   ========================== */
+
+/* Estado inicial do menu mobile (escondido) */
+@media (max-width: 991px) {
+  /* Mostra o botão hamburguer */
+  .menu-toggle {
+    display: flex;
+    z-index: 1001;
+  }
+
+  /* Container do navbar */
+  #navbar .container {
+    padding: 0 20px;
+  }
+
+  /* Menu de navegação - versão mobile */
+  nav ul {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(3, 7, 18, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 100px 40px 40px;
+    gap: 0;
+    transition: right 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    border-left: 1px solid rgba(37, 99, 235, 0.2);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  /* Menu aberto */
+  nav ul.active {
+    right: 0;
+  }
+
+  /* Itens do menu */
+  nav ul li {
+    width: 100%;
+    opacity: 1;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    transform: translateX(30px);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  /* Animação cascata ao abrir */
+  nav ul.active li {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  nav ul.active li:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  nav ul.active li:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+  nav ul.active li:nth-child(3) {
+    transition-delay: 0.2s;
+  }
+  nav ul.active li:nth-child(4) {
+    transition-delay: 0.25s;
+  }
+  nav ul.active li:nth-child(5) {
+    transition-delay: 0.3s;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 18px 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+  }
+
+  nav ul li a::after {
+    display: none; /* Remove o underline do desktop no mobile */
+  }
+
+  nav ul li a:hover,
+  nav ul li a:active {
+    color: var(--primary-light);
+    padding-left: 10px;
+  }
+
+  /* Botão CTA no mobile */
+  .nav-cta {
+    padding: 8px 16px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* Overlay escuro quando o menu está aberto */
+  nav ul.active::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+  }
+
+  .logo small {
+    font-size: 0.45rem;
+    letter-spacing: 2px;
+  }
+
+  .nav-cta {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  nav ul {
+    width: 85%;
+    padding: 90px 30px 30px;
+  }
+
+  nav ul li a {
+    font-size: 16px;
+    padding: 16px 0;
+  }
+}
+
+/* Quando o menu mobile está aberto, bloqueia o scroll do body */
+body.menu-open {
+  overflow: hidden;
+}
